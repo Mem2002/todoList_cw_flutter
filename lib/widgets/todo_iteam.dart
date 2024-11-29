@@ -3,7 +3,7 @@ import 'package:todolist/constants/color.dart';
 import 'package:todolist/model/task.dart';
 
 class ToDoItem extends StatelessWidget {
-  final Todo todo; // Thay 'ToDo' bằng 'Todo'
+  final Todo todo;
   final Function onToDoChanged;
   final Function onDeleteItem;
 
@@ -20,18 +20,18 @@ class ToDoItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       child: ListTile(
         onTap: () {
-          onToDoChanged(todo); // Thay đổi trạng thái todo
+          onToDoChanged(todo);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         tileColor: Colors.white,
         leading: Icon(
-          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
+          todo.isDone ? Icons.check_box_outline_blank : Icons.check_box,
           color: tdBlue,
         ),
         title: Text(
-          todo.name ?? 'No Title', // Sử dụng 'name' từ lớp Todo
+          todo.name ?? 'No Title',
           style: TextStyle(
             fontSize: 16,
             color: tdBlack,
@@ -49,7 +49,7 @@ class ToDoItem extends StatelessWidget {
           ),
           child: IconButton(
             onPressed: () {
-              onDeleteItem(todo.id); // Gọi hàm xóa
+              onDeleteItem(todo.id);
             },
             color: Colors.white,
             iconSize: 18,

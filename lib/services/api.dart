@@ -9,12 +9,12 @@ class Api {
   static Future<void> updateTodoStatus(String id, bool isDone) async {
     try {
       var url = Uri.parse("${Constants.baseUrl}update_todo/$id");
-      // Sử dụng http.post thay vì http.Request
+    
       var response = await http.post(url, body: {
         "is_done": isDone.toString(),
       });
 
-      // Kiểm tra mã trạng thái
+
       if (response.statusCode == 200) {
         print("Update successful");
       } else {
@@ -29,24 +29,24 @@ class Api {
     try {
       var url = Uri.parse("${Constants.baseUrl}add_todo");
 
-      // Kiểm tra xem 'name' có phải null không
+  
       if (data['name'] == null) {
         print("Name cannot be null");
-        return; // Không tiếp tục nếu name là null
+        return; 
       }
 
-      // Gửi yêu cầu POST với body là một Map
+    
       var response = await http.post(
         url,
         body: {
-          "name": data["name"], // Truyền 'name' vào body
+          "name": data["name"], 
         },
       );
 
-      // Kiểm tra mã trạng thái
+     
       if (response.statusCode == 200) {
         var responseData = jsonDecode(response.body);
-        print(responseData); // In dữ liệu để kiểm tra
+        print(responseData); 
       } else {
         print("Failed to get response: ${response.statusCode}");
         print("Response body: ${response.body}");
@@ -91,8 +91,8 @@ class Api {
 
   static deleteTodo(String id) async {
     var url = Uri.parse("${Constants.baseUrl}delete/$id");
-    final res = await http.delete(url); // Thay đổi thành http.delete
-    if (res.statusCode == 204) {
+    final res = await http.delete(url); 
+    if (res.statusCode == 200) {
       print("Todo deleted successfully.");
     } else {
       print("Failed to delete: ${res.statusCode}");

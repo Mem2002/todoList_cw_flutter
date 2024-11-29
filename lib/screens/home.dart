@@ -3,7 +3,7 @@ import 'package:todolist/constants/color.dart';
 import 'package:todolist/model/task.dart';
 import 'package:todolist/services/api.dart';
 import 'package:todolist/widgets/todo_iteam.dart';
-// import 'package:todolist/widgets/todo_item.dart';
+
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -74,8 +74,10 @@ class _HomeState extends State<Home> {
               children: [
                 Expanded(
                   child: Container(
-                    margin: const EdgeInsets.only(bottom: 20, right: 20, left: 20),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    margin:
+                        const EdgeInsets.only(bottom: 20, right: 20, left: 20),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: const [
@@ -123,19 +125,21 @@ class _HomeState extends State<Home> {
   }
 
   void _handleToDoChange(Todo todo) async {
-  setState(() {
-    todo.isDone = !todo.isDone;
-    print('Changed: ${todo.name}, isDone: ${todo.isDone}'); // Ghi log để kiểm tra
-  });
+    setState(() {
+      todo.isDone = !todo.isDone;
+      print(
+          'Changed: ${todo.name}, isDone: ${todo.isDone}'); 
+    });
 
-  await Api.updateTodoStatus(todo.id!, todo.isDone);
-}
+    await Api.updateTodoStatus(todo.id!, todo.isDone);
+  }
 
   Future<void> _deleteToDoItem(String id) async {
     await Api.deleteTodo(id); // Gọi API để xóa ToDo
     setState(() {
       todoList.removeWhere((item) => item.id == id);
-      _foundTodo.removeWhere((item) => item.id == id); // Cập nhật danh sách tìm thấy
+      _foundTodo
+          .removeWhere((item) => item.id == id);
     });
   }
 
@@ -151,8 +155,8 @@ class _HomeState extends State<Home> {
       'name': name,
     };
 
-    await Api.addProduct(data); // Gọi phương thức addProduct
-    await _fetchProducts(); // Làm mới danh sách todos từ API
+    await Api.addProduct(data); 
+    await _fetchProducts(); 
     _todoController.clear();
   }
 
@@ -161,10 +165,11 @@ class _HomeState extends State<Home> {
     if (enteredKeyword.isEmpty) {
       results = todoList;
     } else {
-      results = todoList.where((item) =>
-        item.name != null && 
-        item.name!.toLowerCase().contains(enteredKeyword.toLowerCase())
-      ).toList();
+      results = todoList
+          .where((item) =>
+              item.name != null &&
+              item.name!.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
     }
     setState(() {
       _foundTodo = results;
@@ -186,6 +191,10 @@ class _HomeState extends State<Home> {
             Icons.search,
             color: tdBlack,
             size: 20,
+          ),
+          prefixIconConstraints: BoxConstraints(
+            maxHeight: 20,
+            minWidth: 25,
           ),
           border: InputBorder.none,
           hintText: 'Search',
